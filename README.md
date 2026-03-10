@@ -182,23 +182,17 @@ foxstories-mern/
 
 ## 📦 Deployment
 
-### Backend (Using Heroku)
+### Backend (Using Render)
 
-1. Create Heroku app:
-```bash
-heroku create foxstories-api
-```
-
-2. Set environment variables:
-```bash
-heroku config:set MONGODB_URI=your_mongodb_url
-heroku config:set JWT_SECRET=your_secret_key
-```
-
-3. Deploy:
-```bash
-git push heroku main
-```
+1. Push your code to GitHub (or another Git provider supported by Render).
+2. In the Render dashboard, create a **New Web Service** and connect this repository.
+3. Set the **Root Directory** to `backend`, then configure:
+   - Build Command: `npm install`
+   - Start Command: `npm run dev` (or your production start script)
+4. In the **Environment** section, add:
+   - `MONGODB_URI=your_mongodb_url`
+   - `JWT_SECRET=your_secret_key`
+5. Click **Create Web Service** to deploy; Render will give you a backend URL to use as your `API_URL`.
 
 ### Frontend (Using Vercel)
 
