@@ -14,7 +14,7 @@ function Menu({ apiUrl }) {
   const fetchMenuItems = async () => {
     try {
       setLoading(true)
-      const response = await axios.get(`${apiUrl}/menu`)
+      const response = await axios.get(`https://foxstories.onrender.com/api/menu`)
       setMenuItems(response.data)
       setError('')
     } catch (error) {

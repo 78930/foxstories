@@ -28,7 +28,9 @@ app.use((err, req, res, next) => {
 });
 
 // MongoDB Connection
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/foxstories';
+// Use MONGODB_URI from environment (Render / local .env), fallback to local Mongo if not set.
+const mongoURI =
+  process.env.MONGODB_URI || 'MONGODB_URI=mongodb+srv://nallavikram333779_db_user:Cafe2026Secure@cluster0.6jqitgq.mongodb.net/foxstories?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose
   .connect(mongoURI, {
