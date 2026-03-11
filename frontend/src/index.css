@@ -16,7 +16,7 @@ html {
 
 /* Header & Navigation */
 header {
-  background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
   color: white;
   padding: 1rem 2rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -66,7 +66,7 @@ nav a:hover, nav button:hover {
 /* Buttons */
 button {
   padding: 0.8rem 1.5rem;
-  background-color: #d2691e;
+  background-color: #3b82f6;
   color: white;
   border: none;
   border-radius: 4px;
@@ -77,7 +77,7 @@ button {
 }
 
 button:hover {
-  background-color: #8b4513;
+  background-color: #1e40af;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
@@ -98,8 +98,8 @@ input, textarea, select {
 
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: #d2691e;
-  box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.1);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 /* Cards */
@@ -146,7 +146,7 @@ form label {
 
 /* Footer */
 footer {
-  background-color: #8b4513;
+  background-color: #1e40af;
   color: white;
   text-align: center;
   padding: 2rem;
@@ -155,7 +155,7 @@ footer {
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(rgba(139, 69, 19, 0.7), rgba(210, 105, 30, 0.7)), 
+  background: linear-gradient(rgba(30, 64, 175, 0.75), rgba(59, 130, 246, 0.7)), 
               url('https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=1200&h=400&fit=crop') center/cover;
   color: white;
   text-align: center;

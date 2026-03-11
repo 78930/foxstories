@@ -1,5 +1,7 @@
 import Admin from '../models/Admin.js';
 import jwt from 'jsonwebtoken';
+import Order from '../models/Order.js';
+import Reservation from '../models/Reservation.js';
 
 // Admin login
 export const adminLogin = async (req, res) => {
@@ -54,5 +56,75 @@ export const createAdmin = async (req, res) => {
   } catch (error) {
     console.error('Create admin error:', error);
     res.status(400).json({ message: 'Error creating admin', error: error.message });
+  }
+};
+
+const countByStatus = (items) =>
+  items.reduce((acc, item) => {
+    const key = item?.status || 'unknown';
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
+
+export const getDashboardSummary = async (req, res) => {
+  try {
+    const [orders, reservations] = await Promise.all([
+      Order.find().sort({ createdAt: -1 }).limit(10),
+      Reservation.find().sort({ date: 1 }).limit(10),
+    ]);
+
+    const allOrders = await Order.find({}, { status: 1, totalAmount: 1 });
+    const allReservations = await Reservation.find({}, { status: 1 });
+
+    const orderCounts = countByStatus(allOrders);
+    const reservationCounts = countByStatus(allReservations);
+
+    const now = new Date();
+    const title = `Fox Stories Dashboard (${now.toLocaleString()})`;
+
+    const lines = [
+      `*${title}*`,
+      ``,
+      `*Orders*`,
+      `Total: ${allOrders.length}`,
+      `Pending: ${orderCounts.pending || 0} | Confirmed: ${orderCounts.confirmed || 0} | Preparing: ${orderCounts.preparing || 0} | Ready: ${orderCounts.ready || 0} | Delivered: ${orderCounts.delivered || 0} | Cancelled: ${orderCounts.cancelled || 0}`,
+      ``,
+      `Latest Orders:`,
+      ...(orders.length
+        ? orders.map((o) => {
+            const amt = typeof o.totalAmount === 'number' ? `₹${o.totalAmount.toFixed(2)}` : '';
+            const type = o.orderType ? ` (${o.orderType})` : '';
+            return `- ${o.customerName || 'Customer'}${type}: ${amt} • ${o.status || 'pending'}`;
+          })
+        : [`- None`]),
+      ``,
+      `*Reservations*`,
+      `Total: ${allReservations.length}`,
+      `Pending: ${reservationCounts.pending || 0} | Confirmed: ${reservationCounts.confirmed || 0} | Cancelled: ${reservationCounts.cancelled || 0}`,
+      ``,
+      `Upcoming Reservations:`,
+      ...(reservations.length
+        ? reservations.map((r) => {
+            const d = r.date ? new Date(r.date).toLocaleDateString() : '';
+            const t = r.time ? ` ${r.time}` : '';
+            const g = r.guests ? ` (${r.guests} guests)` : '';
+            return `- ${r.name || 'Guest'}: ${d}${t}${g} • ${r.status || 'pending'}`;
+          })
+        : [`- None`]),
+    ];
+
+    const text = lines.join('\n');
+
+    res.json({
+      text,
+      stats: {
+        orders: { total: allOrders.length, byStatus: orderCounts },
+        reservations: { total: allReservations.length, byStatus: reservationCounts },
+      },
+      latest: { orders, reservations },
+    });
+  } catch (error) {
+    console.error('Dashboard summary error:', error);
+    res.status(500).json({ message: 'Failed to build dashboard summary', error: error.message });
   }
 };

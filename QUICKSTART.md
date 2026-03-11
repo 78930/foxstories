@@ -83,6 +83,13 @@ const API_URL = 'http://localhost:5000/api'
 ```
 Change this when deploying to production.
 
+WhatsApp number for the Admin Dashboard "Send dashboard to WhatsApp" button:
+- Create `frontend/.env` (or edit it) and set:
+```
+VITE_WHATSAPP_NUMBER=918885653460
+```
+Use country code, digits only (no `+` or spaces).
+
 ## 📱 Key Features to Test
 
 1. **Homepage** - View welcome and intro

@@ -55,7 +55,7 @@ function Menu({ apiUrl }) {
         <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           <button 
             onClick={() => setSelectedCategory('all')}
-            style={{ background: selectedCategory === 'all' ? '#8b4513' : '#d2691e' }}
+            style={{ background: selectedCategory === 'all' ? '#1e40af' : '#3b82f6' }}
           >
             All Items
           </button>
@@ -63,7 +63,7 @@ function Menu({ apiUrl }) {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              style={{ background: selectedCategory === cat ? '#8b4513' : '#d2691e' }}
+              style={{ background: selectedCategory === cat ? '#1e40af' : '#3b82f6' }}
             >
               {cat.charAt(0).toUpperCase() + cat.slice(1)}
             </button>
@@ -87,7 +87,7 @@ function Menu({ apiUrl }) {
                   {item.spicy && <span className="badge" style={{ background: '#f8d7da', color: '#721c24' }}>🌶️ Spicy</span>}
                   {!item.available && <span className="badge" style={{ background: '#e2e3e5', color: '#383d41' }}>🚫 Unavailable</span>}
                 </div>
-                <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#d2691e' }}>
+                <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#3b82f6' }}>
                   ₹{item.price.toFixed(2)}
                 </p>
               </div>

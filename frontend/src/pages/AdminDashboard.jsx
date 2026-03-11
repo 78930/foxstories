@@ -8,6 +8,7 @@ function AdminDashboard({ apiUrl, token }) {
   const [menuItems, setMenuItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [showAddMenuItem, setShowAddMenuItem] = useState(false)
+  const [sendingWhatsApp, setSendingWhatsApp] = useState(false)
   const [newItem, setNewItem] = useState({
     name: '',
     description: '',
@@ -104,6 +105,38 @@ function AdminDashboard({ apiUrl, token }) {
     }
   }
 
+  const buildWhatsAppUrl = (phone, text) => {
+    const digits = (phone || '').replace(/[^\d]/g, '')
+    const encoded = encodeURIComponent(text)
+    if (digits) return `https://wa.me/${digits}?text=${encoded}`
+    return `https://wa.me/?text=${encoded}`
+  }
+
+  const sendDashboardToWhatsApp = async () => {
+    setSendingWhatsApp(true)
+    setMessage('')
+    try {
+      const response = await axios.get(`${apiUrl}/admin/dashboard-summary`, { headers })
+      const text = response.data?.text || ''
+      if (!text) {
+        setMessage('Error: Dashboard summary is empty')
+        return
+      }
+
+      const defaultPhone = import.meta?.env?.VITE_WHATSAPP_NUMBER || ''
+      const phone = defaultPhone || window.prompt('Enter WhatsApp number (with country code, e.g. 919999999999). Leave blank to just open WhatsApp with the text.', '')
+
+      const url = buildWhatsAppUrl(phone, text)
+      window.open(url, '_blank', 'noopener,noreferrer')
+      setMessage('Dashboard summary opened in WhatsApp')
+    } catch (error) {
+      console.error('Error sending WhatsApp summary:', error)
+      setMessage('Error sending WhatsApp summary: ' + (error.response?.data?.message || error.message))
+    } finally {
+      setSendingWhatsApp(false)
+    }
+  }
+
   return (
     <div>
       <section className="hero" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
@@ -112,6 +145,12 @@ function AdminDashboard({ apiUrl, token }) {
       </section>
 
       <div className="container" style={{ padding: '2rem 1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
+          <button onClick={sendDashboardToWhatsApp} disabled={sendingWhatsApp}>
+            {sendingWhatsApp ? 'Preparing WhatsApp...' : 'Send dashboard to WhatsApp'}
+          </button>
+        </div>
+
         {message && (
           <div style={{
             background: message.includes('Error') ? '#f8d7da' : '#d4edda',
@@ -134,7 +173,7 @@ function AdminDashboard({ apiUrl, token }) {
               key={tab}
               onClick={() => setActiveTab(tab)}
               style={{
-                background: activeTab === tab ? '#8b4513' : '#d2691e',
+                background: activeTab === tab ? '#1e40af' : '#3b82f6',
                 borderRadius: '0',
                 color: 'white',
                 padding: '1rem 2rem',
@@ -354,7 +393,7 @@ function AdminDashboard({ apiUrl, token }) {
                         <img src={item.image} alt={item.name} style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px', marginBottom: '1rem' }} />
                         <h4>{item.name}</h4>
                         <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem' }}>{item.description}</p>
-                        <p style={{ fontSize: '1.3rem', fontWeight: 'bold', color: '#d2691e', marginBottom: '0.5rem' }}>
+                        <p style={{ fontSize: '1.3rem', fontWeight: 'bold', color: '#3b82f6', marginBottom: '0.5rem' }}>
                           ₹{item.price.toFixed(2)}
                         </p>
                         <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '1rem' }}>

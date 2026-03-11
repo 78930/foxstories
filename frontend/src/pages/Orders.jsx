@@ -121,7 +121,7 @@ function Orders({ apiUrl }) {
                 <img src={item.image} alt={item.name} style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px', marginBottom: '0.5rem' }} />
                 <h4>{item.name}</h4>
                 <p style={{ fontSize: '0.9rem', color: '#666' }}>{item.description}</p>
-                <p style={{ fontSize: '1.3rem', fontWeight: 'bold', color: '#d2691e', marginBottom: '0.5rem' }}>
+                <p style={{ fontSize: '1.3rem', fontWeight: 'bold', color: '#3b82f6', marginBottom: '0.5rem' }}>
                   ₹{item.price.toFixed(2)}
                 </p>
                 <button onClick={() => addToCart(item)} style={{ width: '100%' }}>Add to Cart</button>
@@ -170,7 +170,7 @@ function Orders({ apiUrl }) {
                 <div style={{ borderTop: '2px solid #ddd', paddingTop: '1rem', marginBottom: '1rem' }}>
                   <p style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.2rem', fontWeight: 'bold' }}>
                     <span>Total:</span>
-                    <span style={{ color: '#d2691e' }}>₹{totalAmount.toFixed(2)}</span>
+                    <span style={{ color: '#3b82f6' }}>₹{totalAmount.toFixed(2)}</span>
                   </p>
                 </div>
 
