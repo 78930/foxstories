@@ -9,7 +9,7 @@ import Orders from './pages/Orders'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminLogin from './pages/AdminLogin'
 
-const API_URL = 'http://localhost:5000/api'
+const API_URL = import.meta.env.VITE_API_URL || 'https://foxstories.onrender.com/api'
 
 function AppContent() {
   const [adminToken, setAdminToken] = useState(() => {
