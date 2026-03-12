@@ -14,12 +14,14 @@ function Menu({ apiUrl }) {
   const fetchMenuItems = async () => {
     try {
       setLoading(true)
+      console.log('Fetching from:', `${apiUrl}/menu`)
       const response = await axios.get(`${apiUrl}/menu`)
       setMenuItems(response.data)
       setError('')
     } catch (error) {
       console.error('Error fetching menu:', error)
-      setError('Failed to load menu. Please try again.')
+      console.error('API URL:', apiUrl)
+      setError(`Failed to load menu: ${error.message || 'Unknown error'}. Please try again.`)
     } finally {
       setLoading(false)
     }
@@ -88,7 +90,7 @@ function Menu({ apiUrl }) {
                   {!item.available && <span className="badge" style={{ background: '#e2e3e5', color: '#383d41' }}>🚫 Unavailable</span>}
                 </div>
                 <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#3b82f6' }}>
-                  ₹{item.price.toFixed(2)}
+                  ₹{parseFloat(item.price || 0).toFixed(2)}
                 </p>
               </div>
             ))}

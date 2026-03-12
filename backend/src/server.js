@@ -6,6 +6,11 @@ import menuRoutes from './routes/menuRoutes.js';
 import reservationRoutes from './routes/reservationRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
+// at the top
+import blogRoutes from './routes/blogRoutes.js';
+
+
+
 
 dotenv.config();
 
@@ -70,6 +75,8 @@ app.use('/api/menu', menuRoutes);
 app.use('/api/reservations', reservationRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/admin', adminRoutes);
+// in Routes section, BEFORE 404 handler
+app.use('/api/blogs', blogRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

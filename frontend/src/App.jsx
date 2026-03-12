@@ -4,12 +4,16 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate } f
 // Pages
 import Home from './pages/Home'
 import Menu from './pages/Menu'
+import Blogs from './pages/Blogs'
 import Reservations from './pages/Reservations'
 import Orders from './pages/Orders'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminLogin from './pages/AdminLogin'
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://foxstories.onrender.com/api'
+// Dev: Use Vite proxy (/api) to avoid CORS | Prod: Use full URL from .env
+const API_URL = import.meta.env.MODE === 'production' 
+  ? (import.meta.env.VITE_API_URL || 'https://foxstories.onrender.com/api')
+  : (import.meta.env.VITE_API_URL || '/api')
 
 function AppContent() {
   const [adminToken, setAdminToken] = useState(() => {
@@ -50,6 +54,7 @@ function AppContent() {
           <nav>
             <Link to="/">Home</Link>
             <Link to="/menu">Menu</Link>
+            <Link to="/blogs">Blog</Link>
             <Link to="/reservations">Reserve</Link>
             <Link to="/orders">Orders</Link>
             {adminToken ? (
@@ -67,6 +72,7 @@ function AppContent() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/blogs" element={<Blogs apiUrl={API_URL} />} />
           <Route path="/menu" element={<Menu apiUrl={API_URL} />} />
           <Route path="/reservations" element={<Reservations apiUrl={API_URL} />} />
           <Route path="/orders" element={<Orders apiUrl={API_URL} />} />
