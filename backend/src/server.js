@@ -76,6 +76,12 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'Server is running', timestamp: new Date() });
 });
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'Fox Stories API is running', status: 'OK' });
+});
+
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
