@@ -16,7 +16,11 @@ const menuItemSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ['breakfast', 'lunch', 'dinner', 'desserts', 'beverages'],
+      enum: [
+        'breakfast', 'lunch', 'dinner', 'desserts', 'beverages',
+        'chicken', 'seafood', 'veg_starter', 'momos', 'fried_rice', 
+        'noodles', 'curry', 'sauces', 'soup', 'rolls', 'sizzlers', 'sushi', 'platters'
+      ],
       required: true,
     },
     image: {

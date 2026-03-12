@@ -7,8 +7,9 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "seed:menu": "node src/seedMenu.js",
+    "seed:menu": "node seedMenuData.js",
     "seed:admin": "node src/seedAdmin.js",
+    "seed:menu-old": "node src/seedMenu.js",
     "gen:secret": "node scripts/generate-jwt-secret.js"
   },
   "dependencies": {
