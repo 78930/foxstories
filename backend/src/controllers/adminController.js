@@ -18,9 +18,16 @@ export const adminLogin = async (req, res) => {
     const isPasswordValid = await admin.comparePassword(password);
     if (!isPasswordValid) return res.status(401).json({ message: 'Invalid credentials' });
     
+    // JWT_SECRET must be set in environment - fail early if not
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      console.error('✗ JWT_SECRET not set in environment variables');
+      return res.status(500).json({ message: 'Server configuration error - contact administrator' });
+    }
+    
     const token = jwt.sign(
       { id: admin._id, email: admin.email },
-      process.env.JWT_SECRET || 'your_jwt_secret_key_change_this_in_production',
+      jwtSecret,
       { expiresIn: '24h' }
     );
     
