@@ -5,9 +5,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
+    host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'http://192.168.1.5:5000',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path
@@ -15,7 +16,7 @@ export default defineConfig({
     }
   },
   preview: {
-    allowedHosts: ['foxstories-frontend.onrender.com', 'localhost'],
+    allowedHosts: ['foxstories-frontend.onrender.com', 'localhost', '192.168.1.5'],
     host: '0.0.0.0',
     port: 5000
   }
