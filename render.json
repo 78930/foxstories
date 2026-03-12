@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm install",
+  "startCommand": "cd backend && npm start",
+  "env": {
+    "NODE_ENV": "production",
+    "MONGODB_URI": "@MONGODB_URI",
+    "JWT_SECRET": "@JWT_SECRET",
+    "FRONTEND_URL": "@FRONTEND_URL",
+    "PORT": "5000"
+  }
+}
