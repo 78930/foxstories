@@ -14,7 +14,7 @@ import AdminLogin from './pages/AdminLogin'
 const API_URL = import.meta.env.VITE_API_URL 
   ? import.meta.env.VITE_API_URL 
   : (import.meta.env.MODE === 'production' 
-    ? 'https://foxstories-backend.onrender.com/api' 
+    ? 'https://foxstories.onrender.com/api'
     : '/api')
 
 function AppContent() {
