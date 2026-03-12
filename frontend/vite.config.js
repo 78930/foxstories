@@ -13,5 +13,10 @@ export default defineConfig({
         rewrite: (path) => path
       }
     }
+  },
+  preview: {
+    allowedHosts: ['foxstories-frontend.onrender.com', 'localhost'],
+    host: '0.0.0.0',
+    port: 5000
   }
 })
