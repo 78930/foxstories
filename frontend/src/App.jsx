@@ -11,9 +11,11 @@ import AdminDashboard from './pages/AdminDashboard'
 import AdminLogin from './pages/AdminLogin'
 
 // Dev: Use Vite proxy (/api) to avoid CORS | Prod: Use full URL from .env
-const API_URL = import.meta.env.MODE === 'production' 
-  ? (import.meta.env.VITE_API_URL || 'https://foxstories.onrender.com/api')
-  : (import.meta.env.VITE_API_URL || '/api')
+const API_URL = import.meta.env.VITE_API_URL 
+  ? import.meta.env.VITE_API_URL 
+  : (import.meta.env.MODE === 'production' 
+    ? 'https://foxstories-backend.onrender.com/api' 
+    : '/api')
 
 function AppContent() {
   const [adminToken, setAdminToken] = useState(() => {
