@@ -1,9 +1,8 @@
 {
   "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
-  "framework": "vite",
   "env": {
-    "VITE_API_URL": "@VITE_API_URL"
+    "VITE_API_URL": "https://foxstories-3mix.onrender.com/api"
   },
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
