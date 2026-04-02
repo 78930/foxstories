@@ -237,3 +237,37 @@ footer {
     padding: 1.5rem;
   }
 }
+.orders-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+.menu-column {
+  min-width: 0;
+}
+
+.cart-column {
+  min-width: 0;
+}
+
+.cart-box {
+  position: sticky;
+  top: 100px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .orders-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-box {
+    position: static;
+  }
+}
